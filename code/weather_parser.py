@@ -25,7 +25,7 @@ def parse_station(station):
                         #actual_max_temp,\n')
         for y in years:
         # You can change the dates here if you prefer to parse a different range
-            current_date = datetime(year=y, month=12, day=1)
+            current_date = datetime(year=y, month=10, day=1)
             end_date = datetime(year=y+1, month=4, day=1)
 
             while current_date != end_date:

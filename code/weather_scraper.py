@@ -21,14 +21,16 @@ def scrape_station(station):
 
 
     # Make sure a directory exists for the station web pages
-    os.chdir('./data/')
+    os.chdir('C:/Users/crock/Documents/GitHub/Nenana/data/')
     # os.mkdir(station)
 
-    years = np.arange(1917, 2015)
+    years = np.arange(2015, 2017)
 
     for y in years:
-        current_date = datetime(year=y, month=12, day=1)
-        end_date = datetime(year=y+1, month=4, day=4)
+        year = 1971
+        station = 'PANN'
+        current_date = datetime(year=year, month=4, day=1)
+        end_date = datetime(year=year, month=4, day=2)
 
         # Use .format(station, YYYY, M, D)
         lookup_URL = 'http://www.wunderground.com/history/airport/{}/{}/{}/{}/DailyHistory.html'

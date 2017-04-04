@@ -15,14 +15,16 @@ with open('test.csv', 'w') as out_file:
                    'actual_precipitation,average_precipitation,'
                    'record_precipitation\n')
 
-with open('1987-12-1.html') as in_file:
+with open('1971-4-1.html') as in_file:
     soup = BeautifulSoup(in_file.read(), 'html.parser')
 
     weather_data = soup.find(id='historyTable').find_all('span', class_='wx-value')
     weather_data_units = soup.find(id='historyTable').find_all('td')
 
     actual_mean_temp = weather_data[0].text
-    actual_max_temp = weather_data[2].text
-    actual_min_temp = weather_data[5].text
-
+    actual_max_temp = weather_data[1].text
+    actual_min_temp = weather_data[4].text
+    weather_data
     actual_mean_temp
+    actual_max_temp
+    actual_min_temp

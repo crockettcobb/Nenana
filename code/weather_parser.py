@@ -14,14 +14,14 @@ def parse_station(station):
     '''
     # no daily average data is available for the Nenana weather station
     # prior to 1 JAN 1949
-    years = np.arange(1949, 2017)
+    years = np.arange(1975, 2017)
 
     os.chdir('C:/Users/crock/Documents/GitHub/Nenana/data/')
 
     # exclude_list = [datetime(year=1971, month=3, day=31),
     #                 datetime(year=1971, month=4, day=4)]
-    with open('{}.csv'.format(station), 'w') as out_file:
-        out_file.write('date,actual_mean_temp, \n')#,actual_min_temp,\
+    with open('{}2.csv'.format(station), 'w') as out_file:
+        out_file.write('date,actual_mean_temp, wind, \n')#,actual_min_temp,\
                         #actual_max_temp,\n')
         for y in years:
         # You can change the dates here if you prefer to parse a different range
@@ -40,11 +40,14 @@ def parse_station(station):
                     weather_data_units = soup.find(id='historyTable').find_all('td')
 
                     actual_mean_temp = weather_data[0].text
-                    # actual_max_temp = weather_data[1].text
+                    try:
+                        actual_wind = weather_data[10].text
+                    except:
+                        actual_wind = ''
                     # actual_min_temp = weather_data[4].text
 
                     out_file.write('{}-{}-{},'.format(current_date.year, current_date.month, current_date.day))
-                    out_file.write(','.join([actual_mean_temp]))
+                    out_file.write(','.join([actual_mean_temp, actual_wind]))
                     out_file.write('\n')
                     # print(current_date)
                     current_date += timedelta(days=1)

@@ -36,10 +36,10 @@ ctrl <- trainControl(method = "repeatedcv",
 # build search grid
 xgb.grid <- expand.grid(nrounds = 650, #the maximum number of iterations
                         eta = c(0.1, 0.2, 0.25), # shrinkage
-                        max_depth = c(6, 10),
+                        max_depth = c(6, 10, 13),
                         gamma = c(0.2, 0.6, 0.85),
                         colsample_bytree = c(0.1, 0.2),
-                        min_child_weight = c(0.5, 1),
+                        min_child_weight = c(0.1, 0.5, 1),
                         subsample = c(0.6, 0.85, 1)
                         )
 
@@ -65,3 +65,22 @@ xgb.pred <- predict(xgb.tune,testX)
 
 xgb.pred
 testy
+
+# train best model based on gridsearch results
+xgb.best <- xgboost(data = data.matrix(trainX), 
+               label= trainy, 
+               eta = 0.1,
+               max_depth = 10, 
+               nround=650, 
+               subsample = 0.85,
+               colsample_bytree = 0.1,
+               eval_metric = "rmse",
+               min_child_weight=0.5,
+               gamma=0.6,
+               nthread = 3)
+
+
+predict(xgb.best, data.matrix(testX))
+testy
+
+saveRDS(xgb.best, 'data/xgb_model.RData')
